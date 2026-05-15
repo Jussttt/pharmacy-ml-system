@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
@@ -15,7 +16,11 @@ categories = ["M01AB","M01AE","N02BA","N02BE","N05B","N05C","R03","R06"]
 
 
 # load dataset (used only for average initialization)
-data = pd.read_csv("salesdaily.csv")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+csv_path = os.path.join(BASE_DIR, "salesdaily.csv")
+
+data = pd.read_csv(csv_path)
 
 
 # compute averages
@@ -29,7 +34,8 @@ state = initialize_state(categories, avg_sales)
 # load models
 models = {}
 for cat in categories:
-    models[cat] = joblib.load(f"model_{cat}.pkl")
+        model_path = os.path.join(BASE_DIR, f"model_{cat}.pkl")
+        models[cat] = joblib.load(model_path)
 
 
 # request schemas
