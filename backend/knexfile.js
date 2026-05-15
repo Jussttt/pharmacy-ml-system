@@ -1,14 +1,20 @@
-module.exports = {
-  development: {
-    client: 'pg',
-    connection: {
-      host: '127.0.0.1',
-      user: 'postgres',
-      password: 'Jose1234',
-      database: 'miniProject'
+require("dotenv").config();
+
+const config = {
+  client: "pg",
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
     },
-    migrations: {
-      directory: './migrations'
-    }
-  }
+  },
+
+  migrations: {
+    directory: "./migrations",
+  },
+};
+
+module.exports = {
+  development: config,
+  production: config,
 };

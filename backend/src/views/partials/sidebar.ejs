@@ -53,6 +53,9 @@
                 <span>Notifications</span>
             </a>
         </li>
+        <% } %>
+
+        <% if (user && (user.role === "Owner" || user.role === "Pharmacist")) { %>
 
         <li class="<%= activePage === 'analysis' ? 'active' : '' %>">
             <a href="/analysis">
@@ -61,14 +64,16 @@
             </a>
         </li>
 
-        <!-- ✅ Only Owner -->
+        <% } %>
+
+
+        <% if (user && user.role === "Owner") { %>
         <li class="<%= activePage === 'users' ? 'active' : '' %>">
             <a href="/users">
                 <i class="fas fa-users"></i>
                 <span>User Management</span>
             </a>
         </li>
-
         <% } %>
 
         <!-- ✅ Pharmacist + Owner (NOT Staff) -->
